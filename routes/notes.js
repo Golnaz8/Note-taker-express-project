@@ -5,13 +5,13 @@ const { v4: uuidv4 } = require('uuid');
 
 // GET request for notes
 notes.get('/', (req, res) => {
-    // Send a message to the client
+    // Send a message to the user
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
         } else {
           // Convert string into JSON object
-          const parsedNotes = JSON.parse(data);
+          const parsedNotes = JSON.parse(data || '[]');
           res.json(parsedNotes);  
         }
     });   
@@ -43,7 +43,7 @@ notes.post('/', (req, res) => {
                 console.error(err);
             } else {
                 // Convert string into JSON object
-                const parsedNotes = JSON.parse(data);
+                const parsedNotes = JSON.parse(data || '[]');
 
                 // Add a new note
                 parsedNotes.push(newNote);
@@ -77,7 +77,6 @@ notes.delete('/:id', (req, res) => {
     // Log that a DELETE request was received
     console.info(`${req.method} request received to delete a note`);
 
-    // Get the ID of the note to be deleted from the request parameters
     const noteId = req.params.id;
 
     // Read the existing notes from the JSON file
@@ -85,10 +84,10 @@ notes.delete('/:id', (req, res) => {
         if (err) {
             console.error(err);
         } else {
-            // Convert string into JSON object
+            
             const parsedNotes = JSON.parse(data);
 
-            // Find the index of the note to be deleted
+            // Find the index of the note that should be deleted
             const noteIndex = parsedNotes.findIndex(note => note.id === noteId);
 
             if (noteIndex !== -1) {
@@ -107,13 +106,13 @@ notes.delete('/:id', (req, res) => {
 
                 const response = {
                     status: 'deleted',
-                    body: noteIndex,
+                    body: `index number: ${noteIndex}`,
                 };
-                
+
                 console.log(response);
                 res.status(201).json(response);
             } else {
-                res.status(404).json('Note not found');
+                res.status(500).json('Note not found');
             }
         }
     });
