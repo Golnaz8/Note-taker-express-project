@@ -35,9 +35,14 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 The following images show the web application's appearance and functionality:
 
+![image](https://github.com/Golnaz8/Note-taker-express-project/assets/133593128/3db169f5-7042-4f7b-a2a8-1fa5aea09e26)
+
+![image](https://github.com/Golnaz8/Note-taker-express-project/assets/133593128/93610e35-1f31-4aca-bae6-b40465989682)
+
 
 ## Live URL
 
+https://ancient-beach-00627-28ee1872ac38.herokuapp.com/
 
 
 ## Installation
